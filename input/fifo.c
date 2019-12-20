@@ -99,12 +99,12 @@ void* input_fifo(void* data)
 			nanosleep (&req, NULL);
 			t++;
 			if (t > 10) {
-				for (i = 0; i < audio->FFTbassbufferSize; i++)audio->audio_out_bass_l[i] = 0;
-				for (i = 0; i < audio->FFTbassbufferSize; i++)audio->audio_out_bass_r[i] = 0;
-				for (i = 0; i < audio->FFTmidbufferSize; i++)audio->audio_out_mid_l[i] = 0;
-				for (i = 0; i < audio->FFTmidbufferSize; i++)audio->audio_out_mid_l[i] = 0;
-				for (i = 0; i < audio->FFTtreblebufferSize; i++)audio->audio_out_treble_r[i] = 0;
-				for (i = 0; i < audio->FFTtreblebufferSize; i++)audio->audio_out_treble_r[i] = 0;
+				memset(audio->audio_out_bass_l, 0, audio->FFTbassbufferSize * sizeof(int16_t));
+				memset(audio->audio_out_bass_r, 0, audio->FFTbassbufferSize * sizeof(int16_t));
+				memset(audio->audio_out_mid_l, 0, audio->FFTmidbufferSize * sizeof(int16_t));
+				memset(audio->audio_out_mid_r, 0, audio->FFTmidbufferSize * sizeof(int16_t));
+				memset(audio->audio_out_treble_l, 0, audio->FFTtreblebufferSize * sizeof(int16_t));
+				memset(audio->audio_out_treble_r, 0, audio->FFTtreblebufferSize * sizeof(int16_t));
 				close(fd);
 				fd = open_fifo(audio->source);
 				t = 0;
